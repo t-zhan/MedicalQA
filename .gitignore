@@ -164,5 +164,4 @@ cython_debug/
 data/
 img/
 models/
-preprocess/
-tmp_data/
+tmp/
