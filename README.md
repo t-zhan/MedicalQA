@@ -1,5 +1,5 @@
 # MedicalQA
-This is a medical question answering system with RAG on medical knowledge graph.
+This is a medical question answering system with RAG on a medical knowledge graph.
 
 ## Environment Requirements
 CUDA 11.8  

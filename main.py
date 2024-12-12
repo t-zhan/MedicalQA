@@ -2,10 +2,10 @@ import os
 import streamlit as st
 from src.ui.login import login_page, register_page
 from src.ui.user_data_storage import create_folder_if_not_exist, read_credentials, write_credentials, Credentials
-from src.question_answer.load import load_model
-from src.question_answer.generate import generate_answer, output_kw, select_context
+from src.qa.load import load_model
+from src.qa.generate import generate_answer, output_kw, select_context
 from src.match.match_utils import match_entities_and_save
-from src.knowledge_graph.disease_to_cypher import DiseaseToCypher
+from src.kg.disease_to_cypher import DiseaseToCypher
 
 
 def main(is_admin, usname):  # , model, tokenizer, model_name):
