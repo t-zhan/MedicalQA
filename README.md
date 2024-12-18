@@ -60,7 +60,7 @@ MedicalQA
 `streamlit run main.py`
 
 ## Demo
-https://github.com/user-attachments/assets/a25bc459-10cd-41e6-ba03-f6601628e6a5  
+https://github.com/user-attachments/assets/780120d4-9b8c-47a2-8746-8612f0612504  
 
 ## Acknowledge
 [基于RAG与大模型技术的医疗问答系统](https://github.com/honeyandme/RAGQnASystem)
