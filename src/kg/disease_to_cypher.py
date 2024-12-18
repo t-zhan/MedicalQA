@@ -86,6 +86,7 @@ class DiseaseToCypher:
 
             # 查询属性
             property_records = self.graph.run(property_query, disease_name=disease_name).data()
+            print(disease_names)
             if not property_records:  # 如果查询结果为空列表，跳过该疾病
                 print('*'*100)
                 print(f"注意: 疾病实体 '{disease_name}' 在数据库中未找到，已跳过")

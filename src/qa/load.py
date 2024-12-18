@@ -1,6 +1,7 @@
 import os
 import torch
-from modelscope import snapshot_download
+# from modelscope import snapshot_download
+from huggingface_hub import snapshot_download
 from transformers import (
     AutoConfig,
     AutoTokenizer,
@@ -24,10 +25,14 @@ def load_model(mdoel_name):
         model_id = snapshot_download("LLM-Research/Meta-Llama-3.1-8B-Instruct", 
                                     local_dir='models/Meta-Llama-3.1-8B-Instruct', 
                                     cache_dir='models/Meta-Llama-3.1-8B-Instruct/cache')
+    elif mdoel_name == 'Huatuo':
+        model_id = snapshot_download("FreedomIntelligence/HuatuoGPT2-7B", 
+                                    local_dir='models/HuatuoGPT2-7B', 
+                                    cache_dir='models/HuatuoGPT2-7B/cache')
     else:
-        raise ValueError('Invalid model name, must be either "Qwen 2.5" or "Llama3.1"')
-    config = AutoConfig.from_pretrained(model_id)
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+        raise ValueError('Invalid model name, must be "Qwen 2.5", "Llama3.1" or "Huatuo".')
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         config=config,
@@ -45,5 +50,5 @@ def load_model(mdoel_name):
         max_new_tokens=256
     )
     model.eval()
-
+    model.requires_grad_(False)
     return model,tokenizer,generation_config
