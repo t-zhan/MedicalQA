@@ -99,7 +99,7 @@ def main(is_admin, usname):  # , model, tokenizer, model_name):
         symptoms = symptoms_names['match']
         symptoms_names = disease_to_cypher.get_diseases_by_fuzzy_symptoms(symptoms, debug=False)
         diseases_info = disease_to_cypher.get_disease_info(symptoms)
-        diseases_info.append(disease_to_cypher.get_disease_info(diseases_names))
+        diseases_info += disease_to_cypher.get_disease_info(diseases_names)
 
         response_placeholder.text("匹配已完成，正在生成回复...")
         diseases_info = select_context(diseases_info, data_s)
