@@ -200,6 +200,27 @@ def output_kw(input, model, tokenizer):
     data['intent'] = intent
     return data
 
+def output_kw_d(input, model, tokenizer):
+    # 问题实体提取
+    intent = generate_intent(input, model, tokenizer)
+    output = generate_keywords(input, model, tokenizer)
+    data = {}
+    data['type'] = "疾病"
+    data['entity'] = output
+    data['intent'] = intent
+    return data
+
+def output_kw_s(input, model, tokenizer):
+    # 问题实体提取
+    intent = generate_intent(input, model, tokenizer)
+    output = generate_keywords(input, model, tokenizer)
+    data = {}
+
+    data['type'] = "症状"
+    data['entity'] = output
+
+    data['intent'] = intent
+    return data
 
 def g_new_context(new_context, context, data, i):
     new_context[f'{i}'] = {}
