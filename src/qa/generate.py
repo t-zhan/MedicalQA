@@ -272,3 +272,30 @@ def select_context(context, data):
     for i in range(len(context)):
         new_context = g_new_context(new_context,context,data,i)
     return new_context
+
+
+def generate_direct_answer(input, model, tokenizer):
+    
+    messages = [
+        {"role": "system", "content": "你是一个乐于助人的医学专家，根据提供的信息以医生的身份回答问题。"},
+        {"role": "user", "content": f"{input}"},
+    ]
+    pipeline = transformers.pipeline(
+            "text-generation",
+            model=model,
+            tokenizer=tokenizer,
+            torch_dtype=torch.float16
+            )
+    sequences = pipeline(
+            messages,
+            do_sample=True,
+            top_k=10,
+            num_return_sequences=1,
+            max_length=8192,
+            pad_token_id=tokenizer.eos_token_id)
+
+    output = sequences[0]['generated_text'][-1]['content']
+    
+
+    print(f"direct_answer:\n{output}\n")
+    return output
