@@ -3,7 +3,7 @@ import streamlit as st
 from src.ui.login import login_page, register_page
 from src.ui.user_data_storage import create_folder_if_not_exist, read_credentials, write_credentials, Credentials
 from src.qa.load import load_model
-from src.qa.generate import generate_answer, output_kw, select_context, generate_direct_answer
+from src.qa.generate import generate_answer, output_kw, select_context, generate_direct_answer, output_kw_d, output_kw_s
 from src.match.match_utils import match_entities_and_save
 from src.kg.disease_to_cypher import DiseaseToCypher
 
@@ -98,18 +98,28 @@ def main(is_admin, usname):  # , model, tokenizer, model_name):
         elif st.session_state.is_RAG == 'LLM+RAG':
             response_placeholder.text("正在识别意图...")
             query = current_messages[-1]["content"]
-            data = output_kw(query, st.session_state.model, st.session_state.tokenizer)
+            # data = output_kw(query, st.session_state.model, st.session_state.tokenizer)
+            data_d = output_kw_d(query, st.session_state.model, st.session_state.tokenizer)
+            data_s = output_kw_s(query, st.session_state.model, st.session_state.tokenizer)
 
             response_placeholder.text("意图已识别，正在匹配知识图谱...")
-            diseases_names = match_entities_and_save(data)
+            # diseases_names = match_entities_and_save(data)
+            diseases_names = match_entities_and_save(data_d)
+            symptoms_names = match_entities_and_save(data_s)
+            
             disease_to_cypher = DiseaseToCypher()
-            if diseases_names['Type'] == 'symptom':
-                symptoms = diseases_names['match']
-                diseases_names = disease_to_cypher.get_diseases_by_fuzzy_symptoms(symptoms, debug=False)
-                diseases_info = disease_to_cypher.get_disease_info(diseases_names)
-            else:
-                diseases_info = disease_to_cypher.get_disease_info(diseases_names['match'][0])
-
+#             if diseases_names['Type'] == 'symptom':
+#                 symptoms = diseases_names['match']
+#                 diseases_names = disease_to_cypher.get_diseases_by_fuzzy_symptoms(symptoms, debug=False)
+#                 diseases_info = disease_to_cypher.get_disease_info(diseases_names)
+#             else:
+#                 diseases_info = disease_to_cypher.get_disease_info(diseases_names['match'][0])
+                
+            symptoms = symptoms_names['match']
+            symptoms_names = disease_to_cypher.get_diseases_by_fuzzy_symptoms(symptoms, debug=False)
+            diseases_info = disease_to_cypher.get_disease_info(symptoms_names)
+            diseases_info += disease_to_cypher.get_disease_info(diseases_names)
+            
             response_placeholder.text("匹配已完成，正在生成回复...")
             diseases_info = select_context(diseases_info, data)
             last = generate_answer(query, diseases_info, data['intent'], st.session_state.model, st.session_state.tokenizer)
