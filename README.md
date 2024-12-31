@@ -11,6 +11,15 @@ All the packages can be installed by `conda env create -f environment.yaml`.
 ## Project Structure
 MedicalQA  
 ├──&ensp;data  
+│&ensp;&ensp;&ensp;&ensp;├──&ensp;kg_info  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├── entity_relation  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;other_medical_merge.csv  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;other_medical_merge.json  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;result_cause.json  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;result_easy_get.json  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;result_instruction.json  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;result_prevent.json  
 │&ensp;&ensp;&ensp;&ensp;└──&ensp;match_info  
 │&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;disease.npy  
 │&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;disease.txt  
@@ -49,3 +58,9 @@ MedicalQA
 
 ## Run
 `streamlit run main.py`
+
+## Demo
+https://github.com/user-attachments/assets/f785cacf-d4de-47c2-8832-b8334e3af99a
+
+## Acknowledge
+[基于RAG与大模型技术的医疗问答系统](https://github.com/honeyandme/RAGQnASystem)

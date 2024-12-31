@@ -200,6 +200,27 @@ def output_kw(input, model, tokenizer):
     data['intent'] = intent
     return data
 
+def output_kw_d(input, model, tokenizer):
+    # 问题实体提取
+    intent = generate_intent(input, model, tokenizer)
+    output = generate_keywords(input, model, tokenizer)
+    data = {}
+    data['type'] = "疾病"
+    data['entity'] = output
+    data['intent'] = intent
+    return data
+
+def output_kw_s(input, model, tokenizer):
+    # 问题实体提取
+    intent = generate_intent(input, model, tokenizer)
+    output = generate_keywords(input, model, tokenizer)
+    data = {}
+
+    data['type'] = "症状"
+    data['entity'] = output
+
+    data['intent'] = intent
+    return data
 
 def g_new_context(new_context, context, data, i):
     new_context[f'{i}'] = {}
@@ -251,3 +272,30 @@ def select_context(context, data):
     for i in range(len(context)):
         new_context = g_new_context(new_context,context,data,i)
     return new_context
+
+
+def generate_direct_answer(input, model, tokenizer):
+    
+    messages = [
+        {"role": "system", "content": "你是一个乐于助人的医学专家，根据提供的信息以医生的身份回答问题。"},
+        {"role": "user", "content": f"{input}"},
+    ]
+    pipeline = transformers.pipeline(
+            "text-generation",
+            model=model,
+            tokenizer=tokenizer,
+            torch_dtype=torch.float16
+            )
+    sequences = pipeline(
+            messages,
+            do_sample=True,
+            top_k=10,
+            num_return_sequences=1,
+            max_length=8192,
+            pad_token_id=tokenizer.eos_token_id)
+
+    output = sequences[0]['generated_text'][-1]['content']
+    
+
+    print(f"direct_answer:\n{output}\n")
+    return output

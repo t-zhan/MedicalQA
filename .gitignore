@@ -164,3 +164,4 @@ cython_debug/
 # data/
 models/
 tmp/
+kg_info_old/

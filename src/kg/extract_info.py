@@ -19,7 +19,7 @@ def extract_paper_rel(file_path, rel_dict, disease_set, max_papers=None): # pape
                     line = json.loads(line)
                 except json.JSONDecodeError as e:
                     error_count += 1
-                    print(f"Error parsing JSON: {e} for paper {paper_count} line {paper.index(line) + 1}")
+                    # print(f"Error parsing JSON: {e} for paper {paper_count} line {paper.index(line) + 1}")
                     continue
 
                 for rel in rel_dict.keys():
@@ -63,7 +63,7 @@ def extract_paper_rel(file_path, rel_dict, disease_set, max_papers=None): # pape
                                 rel_dict[rel].append(('疾病', subj, '传染方式', '传染方式', obj))
                                 paper_relationship.append(('疾病', subj, '传染方式', '传染方式', obj))
 
-    print(f"total errors: {error_count}")
+    # print(f"total errors: {error_count}")
     return list(set(paper_relationship)), { rel_name: list(set(rel_list_of_tuple)) for rel_name, rel_list_of_tuple in rel_dict.items() }
 
 
@@ -93,7 +93,7 @@ def extract_rel(file_path, rel, max_lines=None): # prevent, cause, easy_get
                 rel = rel
                 if subj and obj:
                     result.append((subj, rel, obj))
-    print(f"total errors: {error_count}")
+    # print(f"total errors: {error_count}")
     return list(set(result))
 
 def extract_entity(rel_result): # rel_result是一个list, 每个元素是一个三元组
