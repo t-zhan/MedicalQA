@@ -42,6 +42,12 @@ MedicalQA
 │&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;\_\_init\_\_.py  
 │&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;generate.py  
 │&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;load.py  
+│&ensp;&ensp;&ensp;&ensp;├──&ensp;spider  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;chromedriver  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;data_spyder.py  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;paper_spider.py  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;url_extract.py  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;other_all.py  
 │&ensp;&ensp;&ensp;&ensp;└──&ensp;ui  
 │&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;\_\_init\_\_.py  
 │&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;login.py  
@@ -53,6 +59,9 @@ MedicalQA
 ├──&ensp;environment.yaml  
 ├──&ensp;LICENSE  
 └──&ensp;README.md  
+
+## Data Crawl
+`python src/spider/paper_spider.py` (make sure `chromedriver` is in the same directory)  
 
 ## Preprocess  
 `python src/preprocess/convert_rawjson_to_line.py`  
