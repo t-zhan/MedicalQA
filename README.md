@@ -12,19 +12,17 @@ All the packages can be installed by `conda env create -f environment.yaml`.
 MedicalQA  
 ├──&ensp;data  
 │&ensp;&ensp;&ensp;&ensp;├──&ensp;kg_info  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├── entity_relation  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;other_medical_merge.csv  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;other_medical_merge.json  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;result_cause.json  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;result_easy_get.json  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;result_instruction.json  
-│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;result_prevent.json  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├── fixed_entity_relation  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;entity  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;├──&ensp;relation  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
 │&ensp;&ensp;&ensp;&ensp;└──&ensp;match_info  
-│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;disease.npy  
-│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;disease.txt  
-│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;├──&ensp;symptom.npy  
-│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└──&ensp;symptom.txt  
+│&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
+│&ensp;&ensp;&ensp;&ensp;└──&ensp;raw_data  
+│&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
 ├──&ensp;models  
 │&ensp;&ensp;&ensp;&ensp;├──&ensp;Meta-Llama-3.1-8B-Instruct  
 │&ensp;&ensp;&ensp;&ensp;│&ensp;&ensp;&ensp;&ensp;└──&ensp;...  
@@ -56,6 +54,12 @@ MedicalQA
 ├──&ensp;LICENSE  
 └──&ensp;README.md  
 
+## Preprocess  
+`python src/preprocess/convert_rawjson_to_line.py`  
+`python src/preprocess/old_new_merge.py`  
+`python src/preprocess/other_mecical_merge.py`  
+
+These will generate 4 json files in `data/raw_data`.
 ## Run
 `streamlit run main.py`
 
