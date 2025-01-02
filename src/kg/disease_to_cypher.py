@@ -86,7 +86,7 @@ class DiseaseToCypher:
 
             # 查询属性
             property_records = self.graph.run(property_query, disease_name=disease_name).data()
-            print(disease_names)
+            print(disease_name)
             if not property_records:  # 如果查询结果为空列表，跳过该疾病
                 print('*'*100)
                 print(f"注意: 疾病实体 '{disease_name}' 在数据库中未找到，已跳过")
@@ -296,3 +296,4 @@ class DiseaseToCypher:
         
         return list(result_diseases)
         
+DiseaseToCypher().get_diseases_by_fuzzy_symptoms([['发热', '不发热', '持续性发热'], ['咳嗽', '咳嗽加剧', '持续性咳嗽', '干咳', '咳', '日间咳嗽', '变应性咳嗽', '白天咳嗽', '咳嗽痰多', '咳嗽伴哮鸣音']], debug=False)

@@ -36,7 +36,7 @@ def main(is_admin, usname):  # , model, tokenizer, model_name):
 
         selected_option = st.selectbox(
             label='请选择大语言模型:',
-            options=['Qwen 2.5', 'Llama 3.1', 'Huatuo']
+            options=['Qwen2.5-14B', 'Llama3.1', 'Huatuo']
         )
         if selected_option != st.session_state.model_name:
             st.session_state.model_name = selected_option
@@ -116,13 +116,13 @@ def main(is_admin, usname):  # , model, tokenizer, model_name):
 #                 diseases_info = disease_to_cypher.get_disease_info(diseases_names['match'][0])
                 
             symptoms = symptoms_names['match']
-            symptoms_names = disease_to_cypher.get_diseases_by_fuzzy_symptoms(symptoms, debug=False)
-            diseases_info = disease_to_cypher.get_disease_info(symptoms_names)
-            diseases_info += disease_to_cypher.get_disease_info(diseases_names)
+            symptoms = disease_to_cypher.get_diseases_by_fuzzy_symptoms(symptoms, debug=False)
+            diseases_info = disease_to_cypher.get_disease_info(symptoms)
+            # diseases_info += disease_to_cypher.get_disease_info(diseases_names['match'][0])
             
             response_placeholder.text("匹配已完成，正在生成回复...")
-            diseases_info = select_context(diseases_info, data)
-            last = generate_answer(query, diseases_info, data['intent'], st.session_state.model, st.session_state.tokenizer)
+            diseases_info = select_context(diseases_info, data_s)
+            last = generate_answer(query, diseases_info, data_s['intent'], st.session_state.model, st.session_state.tokenizer)
         else:
             raise ValueError("未知的模型选择。")
 
@@ -136,16 +136,16 @@ def main(is_admin, usname):  # , model, tokenizer, model_name):
             st.markdown(last)
             if show_ent:
                 with st.expander("实体识别结果"):
-                    st.write(data['entity'])
+                    st.write(data_s['entity'] + data_d['entity'])
             if show_int:
                 with st.expander("意图识别结果"):
-                    st.write(data['intent'])
+                    st.write(data_s['intent'])
             if show_prompt:                
                 with st.expander("点击显示知识库信息"):
                     st.write(diseases_info)
         if st.session_state.is_RAG == 'LLM+RAG':
             # current_messages.append({"role": "assistant", "content": last, "yitu": yitu, "prompt": zhishiku_content, "ent": str(entities)})
-            current_messages.append({"role": "assistant", "content": last, "yitu": data['intent'], "prompt": diseases_info, "ent": data["entity"]})
+            current_messages.append({"role": "assistant", "content": last, "yitu": data_s['intent'], "prompt": diseases_info, "ent": data_s["entity"]})
         elif st.session_state.is_RAG == 'LLM':
             current_messages.append({"role": "assistant", "content": last})
 
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     if 'usname' not in st.session_state:
         st.session_state.usname = ""
     if 'model' not in st.session_state:
-        st.session_state.model_name = 'Qwen 2.5'
+        st.session_state.model_name = 'Qwen2.5-14B'
         st.session_state.model, st.session_state.tokenizer, _ = load_model(st.session_state.model_name)
 
     if not st.session_state.logged_in:

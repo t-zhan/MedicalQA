@@ -173,7 +173,7 @@ def generate_answer(input, context, intent, model, tokenizer):
             do_sample=True,
             top_k=10,
             num_return_sequences=1,
-            max_length=8192,
+            max_length=8192 * 4,
             pad_token_id=tokenizer.eos_token_id)
 
     output = sequences[0]['generated_text'][-1]['content']
