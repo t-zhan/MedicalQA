@@ -161,10 +161,3 @@ if __name__ == '__main__':
     print(len(cause))
     print(len(easy_get))
     print(len(prevent))
-    # for i, j, k in cause_relationship:
-    #     print(i)
-    #     print(j)
-    #     print(k)
-
-
-    a = '2' # 调试节点

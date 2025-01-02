@@ -126,52 +126,6 @@ class DiseaseToCypher:
                 
         return result
 
-    def get_union_diseases_by_symptoms(self, symptom_names: List[str]) -> List[str]:
-        """
-        通过疾病症状名称列表查找相关的疾病名称（每个症状对应的疾病名称列表的并集）
-        
-        Args:
-            symptom_names: 疾病症状名称列表
-            
-        Returns:
-            List[str]: 相关疾病名称列表
-        """
-        # Cypher查询语句：通过症状查找相关疾病
-        query = """
-        MATCH (d:疾病)-[r:症状]->(s:疾病症状)
-        WHERE s.name IN $symptom_names
-        RETURN DISTINCT d.name as disease_name
-        """
-        
-        # 执行查询
-        records = self.graph.run(query, symptom_names=symptom_names).data()
-        
-        # 提取疾病名称
-        disease_names = [record['disease_name'] for record in records]
-        return disease_names
-
-    def get_intersect_diseases_by_symptoms(self, symptom_names: List[str]) -> List[str]:
-        """
-        通过疾病症状名称列表查找同时具有所有给定症状的疾病
-        
-        Args:
-            symptom_names: 疾病症状名称列表
-                
-        Returns:
-            List[str]: 满足所有症状的疾病名称列表
-        """
-        # Cypher查询语句：查找同时具有所有给定症状的疾病
-        query = """
-        MATCH (d:疾病)
-        WHERE ALL(symptom IN $symptom_names 
-                WHERE EXISTS((d)-[:症状]->(:疾病症状{name:symptom})))
-        RETURN d.name as disease_name
-        """
-        
-        records = self.graph.run(query, symptom_names=symptom_names).data()
-        disease_names = [record['disease_name'] for record in records]
-        return disease_names
-
     def get_similar_symptoms(self, symptom_groups: List[List[str]]) -> List[List[str]]:
         """
         对给定的症状组进行模糊匹配，每组包含同一症状的多种表述
@@ -295,5 +249,3 @@ class DiseaseToCypher:
                 print("-" * 100)
         
         return list(result_diseases)
-        
-DiseaseToCypher().get_diseases_by_fuzzy_symptoms([['发热', '不发热', '持续性发热'], ['咳嗽', '咳嗽加剧', '持续性咳嗽', '干咳', '咳', '日间咳嗽', '变应性咳嗽', '白天咳嗽', '咳嗽痰多', '咳嗽伴哮鸣音']], debug=False)
