@@ -3,7 +3,7 @@ import pandas as pd
 import re
 
 data = []
-data_path = 'data/data_preprocess/new_medical_line.json'
+data_path = 'data/raw_data/new_medical_line.json'
 with open(data_path, 'r', encoding='utf-8-sig') as f:
     for line in f:
         line = line.strip()
@@ -67,7 +67,7 @@ df_guo = pd.DataFrame(data_flat)
 
 
 data2 = []
-data2_path = 'data/data_preprocess/old_medical.json'
+data2_path = 'data/raw_data/old_medical.json'
 with open(data2_path, 'r', encoding='utf-8-sig') as f:
     for line in f:
         line = line.strip().rstrip(',')
@@ -89,11 +89,11 @@ for column in ["检查项目", "常用药品", "推荐药品"]:
     df_result[column] = df_result[column].apply(lambda x: x if isinstance(x, list) else [])
 
 # 把merge后的 dataframe 导出为 csv 文件 # 预览查看格式
-out_file_path = 'data/data_preprocess/old_new_merge.csv'
-df_result.to_csv(out_file_path, index=False, encoding='utf-8-sig')
+# out_file_path = 'data/data_preprocess/old_new_merge.csv'
+# df_result.to_csv(out_file_path, index=False, encoding='utf-8-sig')
 
 
 # 把 old new merge 后的 dataframe 转换为 json 文件
 json_output = df_result.to_json(orient='records', lines=True, force_ascii=False)
-with open('data/data_preprocess/old_new_merge.json', 'w', encoding='utf-8-sig') as f:
+with open('data/raw_data/old_new_merge.json', 'w', encoding='utf-8-sig') as f:
     f.write(json_output)

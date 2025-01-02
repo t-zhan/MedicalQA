@@ -50,7 +50,7 @@ def all_preprocess_get_way(x):
 
 if __name__ == '__main__':
     otherdata = []
-    otherdata_path = 'data/data_preprocess/other_medical_line.json'
+    otherdata_path = 'data/raw_data/other_medical_line.json'
     with open(otherdata_path, 'r', encoding='utf-8-sig') as f:
         for line in f:
             line = line.strip()
@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
     # 寻医问药主体疾病信息
     data_medical = []
-    data_medical_path = 'data/data_preprocess/old_new_merge.json'
+    data_medical_path = 'data/raw_data/old_new_merge.json'
     with open(data_medical_path, 'r', encoding='utf-8-sig') as f:
         for line in f:
             line = line.strip()
@@ -126,11 +126,11 @@ if __name__ == '__main__':
     for col in ['传染方式']:
         df_result[col] = df_result[col].apply(all_preprocess_get_way)
 
-    # 把 df_result 导出为 csv 文件
-    out_file_path = 'data/kg_info/other_medical_merge.csv'
-    df_result.to_csv(out_file_path, index=False, encoding='utf-8-sig')
+    # 把 df_result 导出为 csv 文件 方便预览调试
+    # out_file_path = 'data/kg_info/other_medical_merge.csv'
+    # df_result.to_csv(out_file_path, index=False, encoding='utf-8-sig')
 
     # 把 df_result 转换为 json 文件
     json_output = df_result.to_json(orient='records', lines=True, force_ascii=False)
-    with open('data/kg_info/other_medical_merge.json', 'w', encoding='utf-8-sig') as f:
+    with open('data/raw_data/other_medical_merge.json', 'w', encoding='utf-8-sig') as f:
         f.write(json_output)
