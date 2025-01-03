@@ -206,6 +206,6 @@ def process_json():
 # RE
 # output文件夹：output_easy_get，output_cause，output_prevent,output_RE
 input_folder = 'data/raw_data'
-output_folder = 'data/raw_data'
+output_folder = 'data/kg_info'
 # process_folder(input_folder, output_folder)
 process_json()

@@ -71,16 +71,26 @@ MedicalQA
 `python src/spider/url_extract.py`  
 `python src/spider/other_all.py`  
 2. Crawl xywy.com  
-`python src/spider/data_spyder.py`
-
-
+`python src/spider/data_spyder.py`  
 
 ## Preprocess  
 `python src/preprocess/convert_rawjson_to_line.py`  
 `python src/preprocess/old_new_merge.py`  
 `python src/preprocess/other_mecical_merge.py`  
+These will generate 4 json files in `data/raw_data`.  
 
-These will generate 4 json files in `data/raw_data`.
+## Extract SPO
+`python src/preprocess/process.py`  
+`python src/preprocess/process_unstru.py`  
+`python src/kg/build_kg.py`  
+
+## Deduplicate
+`python src/encode/encode.py`  
+`python src/encode/delete.py`
+
+## Build Graph
+`python src/kg/txt_to_kg.py`
+
 ## Run
 `streamlit run main.py`
 
