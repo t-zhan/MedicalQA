@@ -11,7 +11,7 @@ import json
 
 
 class CrimeSpider:
-    def __init__(self, output_file='data/raw_data/xywy.json'):
+    def __init__(self, output_file='data/raw_data/old_medical.json'):
         self.output_file = output_file
         self.data = []  # 用于存储抓取的数据
         

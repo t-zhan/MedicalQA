@@ -11,7 +11,7 @@ with open('data/raw_data/new_medical_line.json', 'w', encoding='utf-8') as f:
 
 # convert other_medical_to_line
 data = []
-with open('data/raw_data/jbk39.json.json', 'r', encoding='utf-8') as f:
+with open('data/raw_data/other_medical_rawjson.json.json', 'r', encoding='utf-8') as f:
     content = f.read()  # 读取整个文件内容
     records = content.split('}\n{')  # 以 '}\n{' 为分隔符进行分割
 

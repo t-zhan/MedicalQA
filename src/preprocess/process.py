@@ -175,7 +175,7 @@ def generate_output(texts):
 
 def json_load():
     # 使用with open()打开名为"data.json"的文件并以utf-8编码读取其内容
-    file = 'data/raw_data/xywy.json'
+    file = 'data/raw_data/old_medical.json'
     with open(file, 'r', encoding='utf-8') as fh:
         for line in fh:
             yield json.loads(line.strip())

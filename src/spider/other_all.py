@@ -124,7 +124,7 @@ unique_links = list(zip(unique_links_df['Title'], unique_links_df['Link']))
 
 
 # 将信息写入 JSON 文件
-with open('data/raw_data/jbk39.json.json', 'w', encoding='utf-8') as json_file:
+with open('data/raw_data/other_medical_rawjson.json.json', 'w', encoding='utf-8') as json_file:
     
     for title, link in tqdm(unique_links, desc='Processing diseases', total=len(unique_links)):
         html_content = get_html(link)

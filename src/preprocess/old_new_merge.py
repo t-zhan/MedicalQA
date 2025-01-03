@@ -67,7 +67,7 @@ df_guo = pd.DataFrame(data_flat)
 
 
 data2 = []
-data2_path = 'data/raw_data/xywy.json'
+data2_path = 'data/raw_data/old_medical.json'
 with open(data2_path, 'r', encoding='utf-8-sig') as f:
     for line in f:
         line = line.strip().rstrip(',')
