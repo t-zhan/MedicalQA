@@ -1,6 +1,9 @@
 # MedicalQA
 This is a medical question answering system with RAG on a medical knowledge graph.
 
+![2](https://github.com/user-attachments/assets/d95d3b02-6a1f-4a6c-8b47-e8afa08c633a)
+![1](https://github.com/user-attachments/assets/eb566ad7-0478-44c7-9a5f-fcfc9b17aea0)
+
 ## Environment Requirements
 CUDA 11.8  
 Python 3.12  
