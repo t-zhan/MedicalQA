@@ -1,9 +1,33 @@
-# 提取所有页面的疾病链接
 import requests
 from bs4 import BeautifulSoup
 import time
 import csv
-from tqdm import tqdm 
+from tqdm import tqdm  # 导入 tqdm
+import urllib.request
+import json
+
+
+# 函数：提取每页中的疾病链接
+def get_disease_links(url, page):
+    full_url = url.format(page)
+    try:
+        response = requests.get(full_url, headers=headers)
+        response.raise_for_status()  # 检查是否成功获取页面
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to fetch page {page}, error: {e}")
+        return []
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # 查找包含疾病链接的 <a> 标签
+    disease_links = []
+    for item in soup.select('div.result_item p.result_item_top_l a'):
+        link = item.get('href')  # 获取 href 属性
+        title = item.get('title')  # 获取 title 属性，即疾病名称
+        if link and link.startswith('http'):  # 确保是完整的链接
+            disease_links.append((title, link))
+
+    return disease_links
 
 
 # 基础URL和对应的页数
@@ -33,28 +57,6 @@ base_urls = {
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
-# 函数：提取每页中的疾病链接
-def get_disease_links(url, page):
-    full_url = url.format(page)
-    try:
-        response = requests.get(full_url, headers=headers)
-        response.raise_for_status()  # 检查是否成功获取页面
-    except requests.exceptions.RequestException as e:
-        print(f"Failed to fetch page {page}, error: {e}")
-        return []
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # 查找包含疾病链接的 <a> 标签
-    disease_links = []
-    for item in soup.select('div.result_item p.result_item_top_l a'):
-        link = item.get('href')  # 获取 href 属性
-        title = item.get('title')  # 获取 title 属性，即疾病名称
-        if link and link.startswith('http'):  # 确保是完整的链接
-            disease_links.append((title, link))
-
-    return disease_links
-
 # 存储所有提取的链接
 all_disease_links = []
 
@@ -83,18 +85,15 @@ for title, link in all_disease_links[:100]:  # 仅输出前10个
     print(f"{title}: {link}")
 
 # 保存到 CSV 文件
-with open('/remote-home/share/guokaiqian/disease_links.csv', 'w', newline='', encoding='utf-8') as csvfile:
+with open('./data/raw_data/disease_links.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['Title', 'Link'])  # 写入表头
     writer.writerows(all_disease_links)  # 写入所有链接
-
-
 
 # 最终的疾病链接存储在 all_disease_links 变量中
 print(f"Total diseases extracted: {len(all_disease_links)}")  # 显示提取的总数
 
 # #### 链接去重
-
 # 使用字典保持顺序并去重
 unique_links = list(dict.fromkeys(all_disease_links))
 
@@ -108,9 +107,7 @@ for title, link in unique_links:
 # print(f"Total unique links (set): {len(unique_links_set)}")
 
 print(f"Total diseases extracted: {len(unique_links)}")
-
-
-with open('/remote-home/share/guokaiqian/unique_disease_links.csv', 'w', newline='', encoding='utf-8') as csvfile:
+with open('./data/raw_data/unique_disease_links.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['Title', 'Link'])  # 写入表头
     writer.writerows(unique_links)  # 写入所有链接

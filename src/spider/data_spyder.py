@@ -9,8 +9,9 @@ from tqdm import tqdm
 import os
 import json
 
+
 class CrimeSpider:
-    def __init__(self, output_file='/remote-home/share/guokaiqian/data.json'):
+    def __init__(self, output_file='data/raw_data/xywy.json'):
         self.output_file = output_file
         self.data = []  # 用于存储抓取的数据
         

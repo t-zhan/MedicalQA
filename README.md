@@ -60,8 +60,17 @@ MedicalQA
 ├──&ensp;LICENSE  
 └──&ensp;README.md  
 
-## Data Crawl
+## Data Crawling
+### Instruction Papers Crawling  
 `python src/spider/paper_spider.py` (make sure `chromedriver` is in the same directory)  
+### Structured Data Crawling  
+1. Crawl jbk.39.net  
+`python src/spider/url_extract.py`  
+`python src/spider/other_all.py`  
+2. Crawl xywy.com  
+`python src/spider/data_spyder.py`
+
+
 
 ## Preprocess  
 `python src/preprocess/convert_rawjson_to_line.py`  

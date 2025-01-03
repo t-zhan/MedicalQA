@@ -107,7 +107,7 @@ def extract_information(html):
 
 
 # 从 CSV 文件读取 unique_links
-unique_links_df = pd.read_csv('/remote-home/share/guokaiqian/unique_disease_links.csv')
+unique_links_df = pd.read_csv('./data/raw_data/unique_disease_links.csv')
 
 # 去除列名中的空格（如果有的话）
 unique_links_df.columns = unique_links_df.columns.str.strip()
@@ -124,7 +124,7 @@ unique_links = list(zip(unique_links_df['Title'], unique_links_df['Link']))
 
 
 # 将信息写入 JSON 文件
-with open('/root/Knowledge/all_data_final_8.json', 'w', encoding='utf-8') as json_file:
+with open('data/raw_data/jbk39.json.json', 'w', encoding='utf-8') as json_file:
     
     for title, link in tqdm(unique_links, desc='Processing diseases', total=len(unique_links)):
         html_content = get_html(link)

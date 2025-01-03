@@ -29,7 +29,7 @@ for i in tqdm(range(num_pages)):
     links = set(link.get_attribute('href') for link in links if link.get_attribute('href') is not None and 'index' not in link.get_attribute('href'))
 
     print('Loading existing json...')
-    file_path = 'data/instructions/instructions.json'
+    file_path = 'data/raw_data/instructions.json'
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
             existing_data = json.load(f)
@@ -48,7 +48,7 @@ for i in tqdm(range(num_pages)):
         existing_data.append(entry)
 
     # Write updated data back to file
-    with open('data/instructions/instructions.json', 'w') as f:
+    with open('data/raw_data/instructions.json', 'w') as f:
         json.dump(existing_data, f, ensure_ascii=False, indent=4)
     print('Data saved to file')
 
